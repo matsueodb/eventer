@@ -1,0 +1,27 @@
+<header>
+  <nav>
+    <% if user_signed_in? %>
+    Logged in as <strong><%= current_user.email %></strong>.
+    <%# link_to 'プロフィール変更', edit_user_registration_path %> |
+    <%# link_to "ログアウト", destroy_user_session_path, :method => :delete %>
+    <%= link_to "ログアウト", logout_path %>
+    <% else %>
+    <%# link_to "サインイン", new_user_registration_path %> 
+    <%= link_to "ログイン", new_user_session_path %>
+    <% end %>
+  </nav>
+</header>
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+<h1>Eventer トップページ</h1>
+<%= link_to 'マップ', maps_events_path %><br>
+<% if user_signed_in? %>
+  <% if current_user.has_role? :admin%>
+  <%= link_to 'イベント登録', new_event_path%><br>
+  <%= link_to 'オープンデータ', opendata_list_events_path%><br>
+  <%= link_to 'イベント一覧', events_path%><br>
+  <%= link_to 'ユーザ関係', admins_path ,:method => :get %><br>
+  <%= link_to '画像アップ', images_path %><br>
+  <%= link_to '広告', commercials_path %><br>
+  <% end %>
+<% end %>

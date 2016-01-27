@@ -1,0 +1,189 @@
+<%= javascript_include_tag 'events' %>
+<div ng-controller="get_events"><!-- ng-controller -->
+  <button type="button" class="btn btn-primary" data-toggle="modal" onclick="$('#myModalLabel').text('メニュー');" data-target="#menuModal">メニュー</button>
+  <button type="button" class="btn btn-primary" data-toggle="modal" ng-click="viewListModal()"  data-target="#listModal">一覧</button>
+ <!-- <button  type="checkbox" class="btn btn-primary" ng-click="resetPosition()">場所指定</button>
+   -->
+
+<!-- map -->
+<div id="map_canvas" style="width:100%"></div>
+<!-- end map -->
+
+<!-- Menu Modal -->
+<div class="modal fade col-xs-12" id="menuModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><!-- modal -->
+  <div class="modal-dialog"><!-- modal-dialog -->
+    <div class="modal-content"><!-- modal-content -->
+      <div class="modal-header"><!-- modal-header -->
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">メニュー</h4>
+メニュー内の設定された条件で吉田くんがイベント情報を探します。吉田くんを動かすことで、探すエリアを変えることができます。
+      </div><!--  endmodal-header -->
+      <div class="modal-body"><!-- modal-body -->
+        カテゴリ<br>
+      <div class="col-xs-12"><!-- category -->
+        <!--ng-repeat  -->
+        <div class="btn-group" data-ng-repeat="tag in tags">
+          <label class="btn btn-default" >
+            <input type="checkbox" class="tags" name="{{tag.name}}"  ng-checked="alltag">{{tag.name}}</label>
+        </div>
+        <!-- end ng-repeat  -->
+        <label class="btn btn-link"><input type="checkbox" ng-model="alltag">全部</label>
+      </div>
+      <!-- end category  -->
+      
+      <!-- radius -->
+      <div class="col-xs-12" style="margin-top:10px;margin-bottom:10px">
+        <select ng-model="radius" ng-options="rads + 'km'  for rads in [0.2,0.5,1,3,5,10]">
+          <option value="">距離選択</option>
+        </select>
+      </div>
+      <!-- end rudius -->
+
+      <!-- datepicker-->
+      <div ng-controller="datepicker">
+      <!-- start-date -->
+      <div class="col-xs-12"><button type="button" class="btn btn-info" ng-click="open($event)">開始日</button>{{startdt | date:'yyyy/MM/dd'}}
+      </div>
+      <!-- end start-date -->
+      <input type="hidden" class="form-control" datepicker-popup="{{format}}" ng-model="startdt" is-open="opened" datepicker-options="dateOptions" ng-required="true"/>
+      </div>
+      <!-- end datepcker -->
+
+
+        <!-- datepicker-->
+        <div ng-controller="datepicker">
+
+      <!-- end-date -->
+      <div class="col-xs-12"><button type="button" class="btn btn-info" ng-click="open($event)">終了日</button>{{enddt | date:'yyyy/MM/dd' }}
+      </div>
+      <!-- end end-date -->
+      <input type="hidden" class="form-control" datepicker-popup="{{format}}" ng-model="enddt" is-open="opened" datepicker-options="dateOptions"  ng-required="true" />
+        </div>
+        <!-- end datepcker -->
+
+      </div><!-- end modal-body -->
+      <!-- inline -->
+      <div class="form-inline">
+        <!-- modal-footer -->
+        <div class="modal-footer" style="border:none">
+          <button type="button" class="btn btn-default button-inline pull-right" data-dismiss="modal">閉じる</button>
+
+          <button type="button" class="btn btn-primary button-inline" data-dismiss="modal" ng-click="filter()">検索</button>
+
+        </div>
+        <!-- end-modal-footer -->
+      </div>
+      <!-- end inline -->
+      
+</div><!-- end modal-content -->
+  </div><!-- end modal-dialog -->
+</div><!-- end modal -->
+<!-- end Menu Modal -->
+
+<!-- Detail Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><!-- modal  -->
+  <input type="hidden" id="event_id" ng-model="eventid">
+  <div class="modal-dialog"><!-- modal-dialog  -->
+    <div class="modal-content"><!-- modal-content  -->
+
+      <!-- modal-header -->
+      <div class="modal-header">
+        <button type="button" ng-click="close()" class="close" data-dismiss="modal" aria-label="閉じる"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <!-- end modal-header  -->
+      
+      <!-- modal-body  -->
+      <div class="modal-body">
+     <!--   <button ng-click="view_detail()" ng-hide="detail_view" class="btn button-inline btn-default"> 詳細表示</button>
+-->
+          <ul class="list-inline">
+            <li  ng-repeat="tag in event.tags">
+              [{{tag.tag.name}}]
+            </li>
+          </ul>
+          <style text='text/css'>
+            <!--
+                td{
+                word-break: break-all;
+                }
+              -->
+          </style>
+          <table class="table table-striped">
+            <tr><td><h4>イベント名</h4>{{event.title}}</td></tr>
+            <tr><td><h4>概要</h4>{{event.summary}}</td></tr>
+            <tr><td><h4>URL</h4><a target="_blank" href="{{event.url}}">{{event.url}}</a></td></tr>
+            <tr><td><h4>場所</h4>{{event.place_name}}</td></tr>
+            <tr><td><h4>住所</h4>{{event.address}}</td></tr>
+            <tr><td><h4>期間</h4>{{event.start_date | date:'yyyy/MM/dd'}}-{{event.end_date | date:'yyyy/MM/dd'}}</td></tr>
+            <tr><td><h4>コメント</h4>
+                <ul>
+                  <li ng-repeat="comment in event.comment">
+                    {{comment.comment.value}}
+                  </li>
+            </ul></td></tr>
+          </table>
+
+        <!-- comment -->
+        <div class="commnet ">
+        </div>
+        <!-- end commnet  -->
+
+        <!-- inline -->
+        <div class="form-inline form-group">
+          <input type="text" class="input-inline" ng-model="comment"  placeholder="コメントを書いてください">
+          <button ng-click="send()" ng-disabled="status" class="btn button-inline btn-default ">投稿</button><label>{{status}}</label>
+        </div>
+        <!-- end inline  -->
+
+        <!-- modal-footer  -->
+        <div class="modal-footer">
+          <button type="button" ng-click="close()" class="btn btn-default" data-dismiss="modal">閉じる</button>
+        </div>
+        <!-- end modal-footer  -->
+
+      </div>
+      <!-- end modal-body  -->
+
+    </div><!-- end modal-content  -->
+  </div><!-- end modal-dialog  -->
+</div><!-- end modal  -->
+<!-- end Detail Modal -->
+
+
+
+
+
+
+<!-- List Modal -->
+<div class="modal fade col-xs-12" id="listModal" tabindex="-1" role="dialog" aria-labelledby="listModalLabel" aria-hidden="true"><!-- modal -->
+  <div class="modal-dialog"><!-- modal-dialog -->
+    <div class="modal-content"><!-- modal-content -->
+      <div class="modal-header"><!-- modal-header -->
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="listModalLabel">一覧</h4>
+      </div><!-- end modal-header -->
+
+      <!-- modal-body -->
+      <div class="modal-body">
+        <table class="table table-striped">
+          <tr ng-repeat="event in list_events">
+            <td ng-click="view_detail(event.id)" data-toggle="modal" data-target="#myModal" data-dismiss="modal" >{{event.title}}</td>
+          </tr>
+        </table>
+      {{testval}}
+      <!-- modal-footer -->
+      <div class="modal-footer" style="border:none">
+        <button type="button" class="btn btn-default button-inline pull-right" data-dismiss="modal">閉じる</button>
+      </div>
+      <!-- end-modal-footer -->
+
+      </div>
+      <!-- end modal-body -->
+
+    </div><!-- end modal-content -->
+  </div><!-- end modal-dialog -->
+</div><!-- end modal -->
+<!-- end List Modal -->
+
+</div><!-- end ng-controller -->

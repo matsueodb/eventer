@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="eventsApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+    <title><%= content_for?(:title) ? yield(:title) : "eventer" %></title>
+    <%= csrf_meta_tags %>
+
+    <script type="text/javascript"
+                  src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag "cerulean", :media => "all" %>
+    <%= stylesheet_link_tag "events" %>
+    <%= yield(:page_stylesheet) if content_for?(:page_stylesheet) %>
+
+  </head>
+  <body>
+    <div class="container" style="padding: 0;margin-left:0;margin-right:0;">
+
+    <%= yield %>
+<%= link_to 'Top',root_path %>
+    </div> <!-- /container -->
+    <%= javascript_include_tag "cerulean" %>
+    <%= yield(:page_javascript) if content_for?(:page_javascript) %>
+  </body>
+</html>

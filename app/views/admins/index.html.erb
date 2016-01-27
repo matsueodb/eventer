@@ -1,0 +1,42 @@
+<h1>Listing users</h1>
+
+<style type="text/css">
+  table,td,th{
+    border: 1px #000000 solid;
+    border-collapse: collapse;
+  }
+</style>
+<table>
+  <thead>
+    <tr>
+      <th><%= t('email') %></th>
+      <th><%= t('name') %></th>
+      <th><%= t('login_id') %> </th>
+      <th><%= t('auth') %></th>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td><%= user.name %></td>
+        <td><%= user.login_id %></td>
+        <td>
+          <% user.roles.each do |r| %>
+            <%= r.name %> <br>
+           <% end %>
+        </td>
+<% p user%>
+        <td><%= link_to t('action.edit'), edit_admin_path(user.id) %></td>
+
+        <td><%= link_to t('action.destroy'),  admin_path(id: user.id), :method => :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New User', new_admin_path %>

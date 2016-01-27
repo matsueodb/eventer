@@ -1,0 +1,72 @@
+<div ng-controller="get_events">
+  <div class="col-xs-12 col-sm-9 col-md-5">
+    <table class="table table-striped table-condensed" >
+      <tbody>
+        <tr>
+          <th>name </th>
+          <th>lat </th>
+        </tr>
+        <tr data-ng-repeat="event in events">
+          <td>{{event.title}}</td>
+          <td>{{event.lat}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div ng-controller="slidemenu">
+    <button  type="checkbox" class="btn btn-primary" ng-click="slide('menu')">menu</button>
+  <button  type="checkbox" class="btn btn-primary" ng-click="slide('detail')">detail</button>
+
+  <div id="menu" ng-hide="menuHide" class="animate-hide check-element">
+    <label>menu</label><br>
+
+<div ng-controller="filter">
+<button type="button" class="btn btn-primary" ng-click="filter()">Filter</button>
+</div>
+<div ng-controller="get_all_tag">
+  <div class="col-xs-12 col-sm-9 col-md-5">
+    <div class="btn-group" data-ng-repeat="tag in tags">
+        <label class="btn btn-default tagss" ng-model="checkModel" btn-checkbox  id="{{tag.id}}">{{tag.name}}</label>
+    </div>
+  </div>
+</div>
+startdate:
+<div ng-controller="datepicker">
+
+  <div class="col-md-6">
+    <p class="input-group">
+      <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+      <span class="input-group-btn">
+        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+      </span>
+    </p>
+  </div>
+</div>
+enddate:
+<div ng-controller="datepicker">
+
+   <div class="col-md-6">
+    <p class="input-group">
+      <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+      <span class="input-group-btn">
+        <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+      </span>
+    </p>
+  </div>
+</div>
+
+
+<div id="map_canvas" ng-hide="mapHide" class="animage-hide">
+map
+</div>
+  </div>
+
+  <div id="detail" ng-hide="detailHide" class="animate-hide check-element">
+    <label> detail</label>
+  </div>
+</div>
+
+
+
+<div>

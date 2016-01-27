@@ -1,0 +1,37 @@
+<%= form_for(@commercial) do |f| %>
+  <% if @commercial.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@commercial.errors.count, "error") %> prohibited this commercial from being saved:</h2>
+
+      <ul>
+      <% @commercial.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :url %><br>
+    <%= f.text_field :url %>
+  </div>
+  <div class="field">
+    <%= f.label :lat %><br>
+    <%= f.text_field :lat %>
+  </div>
+  <div class="field">
+    <%= f.label :lng %><br>
+    <%= f.text_field :lng %>
+  </div>
+  <div class="field">
+    <%= f.label :image_id %><br>
+    <%= f.number_field :image_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

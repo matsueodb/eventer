@@ -1,0 +1,38 @@
+html { height: 100% }
+body { height: 100%; margin: 0; padding: 0 }
+#map_canvas {
+    float:left;
+    height: 300px;
+    width: 10px;
+}
+#map_canvas_setting { height: 300px; width: 300px }
+.infowindow {width: 200px; height: 150px}
+.info_title{font-size: small; text-align: center}
+.info_place_name{font-size: x-small}
+.info_comment{font-size: xx-small}
+p {margin: 0px}
+#menu {
+    width: 300px;
+    float: left;
+    display: none;
+}
+.latlng{visibility: hidden;}
+.title{
+    font-weight: bold;
+    text-align: center;
+}
+#detail{
+    width: 300px;
+    float: left;
+    display:none;
+}
+#sub{
+    margin-left: -300px;
+    float: left;
+}
+#container{height: 80%;
+           width: 100%;
+          }
+#bottom{
+    clear: left;
+}

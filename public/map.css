@@ -1,0 +1,9 @@
+html { height: 100% }
+body { height: 100%; margin: 0; padding: 0 }
+#map_canvas { height: 80%; weight:100% }
+
+.infowindow {width: 200px; height: 150px}
+.info_title{font-size: small; text-align: center}
+.info_place_name{font-size: x-small}
+.info_comment{font-size: xx-small}
+p {margin: 0px}

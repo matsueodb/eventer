@@ -1,0 +1,11 @@
+<label hidden id="mode" >表示</label>
+<h1><%= t('action.show')%></h1>
+<p id="notice"><%= notice %></p>
+<%= render 'formmap' %>
+<script type="text/javascript">
+  $(":input").attr('disabled','disabled');
+  $(":text").attr('size',30);
+  $("textarea").css({'width':'200px','height':'200px'});
+</script>
+<%= link_to t('edit'), edit_event_path(@event) %> |
+<%= link_to t('main_menu'), root_path %>

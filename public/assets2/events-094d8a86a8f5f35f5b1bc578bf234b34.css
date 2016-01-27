@@ -1,0 +1,21 @@
+/* line 5, /Users/seii/Documents/workEventer/Eventer/app/assets/stylesheets/events.css.scss */
+.animate-hide {
+  -webkit-transition: width linear 0.5s;
+  transition: width linear 0.5s;
+  line-height: 20px;
+  opacity: 1;
+  padding: 10px;
+  border: 1px solid black;
+  background: white;
+}
+
+/* line 16, /Users/seii/Documents/workEventer/Eventer/app/assets/stylesheets/events.css.scss */
+.animate-hide.ng-hide-add, .animate-hide.ng-hide-remove {
+  display: block !important;
+}
+/* line 19, /Users/seii/Documents/workEventer/Eventer/app/assets/stylesheets/events.css.scss */
+.animate-hide.ng-hide {
+  line-height: 0;
+  opacity: 0;
+  padding: 0 10px;
+}

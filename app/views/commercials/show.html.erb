@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @commercial.name %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @commercial.url %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= @commercial.image_id %>
+</p>
+
+<%= link_to 'Edit', edit_commercial_path(@commercial) %> |
+<%= link_to 'Back', commercials_path %>

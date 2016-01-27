@@ -1,0 +1,36 @@
+<%= form_for(@image) do |f| %>
+  <% if @image.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@image.errors.count, "error") %> prohibited this image from being saved:</h2>
+
+      <ul>
+      <% @image.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <% if @image.data? %>
+    <div class="thumbnail">
+      <%= image_tag @image.data.url %>
+    </div>
+    <% end %><br>
+    <%= f.label :data %><br>
+    <%= f.file_field :data %>
+    <%= f.hidden_field :data_cache %>
+  </div>
+  <div class="field">
+    <!-- 既存レコード(DBに保存されている)かつ、画像が存在する場合 -->
+    <% if @image.persisted? && @image.data? %>
+    <label>
+      <%= f.check_box :remove_data %>
+      画像を削除
+    </label>
+    <% end %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

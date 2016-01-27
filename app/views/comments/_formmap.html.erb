@@ -1,0 +1,63 @@
+<div id="container">
+  <div id="sub">
+<%= javascript_include_tag 'map.js' %>
+
+    <%= stylesheet_link_tag "map" %>
+
+ <!-- Menu -->
+<div id="menu">
+  <h2>Menu</h2>
+  <% tags = TagCollection.all %>
+<% tags.each_with_index do |t,i| %>
+ <%= check_box "tags",t.id,:class =>"tag_filter", :onclick => "tagFilter()", :checked=> 'checked' %><%= t.name%>
+ <% end %>
+ <br>
+ <input type="text" readonly="readonly" id="startDate" onChange="filtering()" class="datepicker">
+  <input type="text" readonly="readonly" id="endDate" onChange="filtering()" class="datepicker">
+
+<% a=[]; [0.5,1,3,5,10].each{|r| a.push([r,r*1000]) }%>
+<select onChange="radiusChanged(this)" id="radius">
+  <%= options_for_select a, :selected => 5000  %>
+</select>km
+<br>
+<input type="button" value="位置を指定" onClick="resetPosition()" >
+<input type="button" value="すべて閉じる" onClick="allCloseInfoWindow()" >
+<input type="button" value="すべて開く" onClick="allOpenInfoWindow()" >
+
+<br>
+<input type="button" value="<-" onClick="menu()" >
+</div>
+<!-- End Menu -->
+
+
+
+<!-- Detail -->
+<div id="detail">
+  <h2><%= t('detail')%>&<%= t('comment')%></h2>
+  <%= form_for(@comment) do |f| %>
+  <% if @comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+
+      <ul>
+      <% @comment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+    <% end %>
+    <%= f.text_field :value %>
+    <%= f.hidden_field :event_id %>
+    <%= f.submit %>
+    <div id="detail_info"></div>
+    <% end %>
+    <input type="button" value="<-" onClick="detail()" >
+    <input type="button" value="comment" onClick="sendComment()">
+</div>
+</div>
+<div id="map_canvas" style="width:400px; height:500px"></div>
+<!-- End Detail -->
+</div>
+ <div id='bottom'>
+  <input type="button" value="メニュー" onClick="menu()" >
+</div>

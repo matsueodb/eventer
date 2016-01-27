@@ -1,0 +1,13 @@
+[{
+    lat:36.656956,
+    lng:140.695518
+    msg:'testmessage1'
+},{
+    lat:36,
+    lng:140,
+    msg:'testmessage1'
+},{
+    lat:35.656956,
+    lng:139.695518
+    msg:'testmessage1'
+}]

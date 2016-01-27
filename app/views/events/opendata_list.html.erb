@@ -1,0 +1,14 @@
+<% @events.each do |event| %>
+<%= link_to(
+      event[:title],
+      new_event_path(:start_date => event[:start_date],
+                      :title => event[:title],
+                      :summary => event[:summary],
+                      :place_name => event[:place_name],
+                      :address => event[:address],
+                      :lat => event[:lat],
+                      :lng => event[:lng]),
+      :target => '_blank'
+    ) %><br>
+<% end %>
+

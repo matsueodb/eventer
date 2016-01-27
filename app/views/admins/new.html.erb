@@ -1,0 +1,28 @@
+<h1>New User</h1>
+
+<%= form_tag 'create' do %>
+  <div class="field">
+    <%= t('name') %>:<%= text_field_tag :name %>
+  </div>
+  <div class="field">
+    <%= t('email') %>:<%= text_field_tag :email %>
+  </div>
+  <div class="field">
+    <%= t('login_id') %>:<%= text_field_tag :login_id %>
+  </div>
+  <div class="field">
+    <%= t('password') %>:<%= text_field_tag :password %>
+  </div>
+  <div class="field">
+    <%= t('auth') %><br>
+    <% auths =  %w[admin eventer commercial user].map(&:capitalize) %>
+    <% auths.each do |a| %>
+      <%= check_box "auth", a, :class =>"auth" %><%= a %>
+    <% end %>
+  </div>
+
+  <div class="actions">
+    <%= submit_tag t('action.add') %>
+  </div>
+<% end %>
+<%= link_to 'Back', admins_path %>

@@ -1,0 +1,2 @@
+module TagCollectionsHelper
+end
